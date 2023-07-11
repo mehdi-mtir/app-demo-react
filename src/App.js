@@ -7,17 +7,20 @@ function App(){
     {
       titre :"Elliot Fu",
       photo:"https://semantic-ui.com/images/avatar/large/elliot.jpg",
-      description:"Hey guys, I hope this example comment is helping you read this documentation."
+      description:"Hey guys, I hope this example comment is helping you read this documentation.",
+      approuve:false
     },
     {
       titre :"Jenny Hess",
       photo:"https://semantic-ui.com/images/avatar/large/jenny.jpg",
-      description:"Jenny wants to add you to the group best friends"
+      description:"Jenny wants to add you to the group best friends",
+      approuve:false
     },
     {
       titre :"Stevie Feliciano",
       photo:"https://semantic-ui.com/images/avatar/small/stevie.jpg",
-      description:"Hey guys, I hope this example comment is helping you read this documentation."
+      description:"Hey guys, I hope this example comment is helping you read this documentation.",
+      approuve:false
     }
   ]);
 
@@ -26,7 +29,17 @@ function App(){
     console.log(comments);
   }
 
-  //deleteComment("Jenny Hess");
+  const approuveComment = (titre)=>{
+    const commentsUpdated = comments.map(comment =>{
+      if(comment.titre === titre)
+        return {...comment, approuve : true}
+      else
+        return comment
+    })
+    setComments(commentsUpdated);
+  }
+
+  //approuveComment("Stevie Feliciano");
 
 
   return <div>
@@ -36,11 +49,14 @@ function App(){
         (comment, index)=>{
         return (
 
-        <Card key={index} refDeleteComment={deleteComment}>
+        <Card key={index}
+        refDeleteComment={deleteComment}
+        refApprouveComment={approuveComment}>
           <Comment
             key={comment.titre}
             titre={comment.titre}
             photo={comment.photo}
+            approuve={comment.approuve}
             description={comment.description}
           />
         </Card>
